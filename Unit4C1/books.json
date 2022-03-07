@@ -1,0 +1,18 @@
+[
+
+    {
+        "bookName" : "Game Of Thrones",
+        "author": "George RR Martin"
+    },
+    {
+        "bookName" : "Digital Fortress",
+        "author": "Stephen Brown"
+
+    },
+    {
+        "bookName" : "Harry Potter",
+        "author": "JK Rowling"
+
+    }
+
+]
