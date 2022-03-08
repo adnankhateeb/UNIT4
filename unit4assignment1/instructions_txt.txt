@@ -1,0 +1,11 @@
+> use assignment
+> db.createCollection('users')
+> db.users.insert({"first_name" : "Adnan", "last_name" : "Khateeb", "email" : "a@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 23})
+> db.users.insert({"first_name" : "Badnan", "last_name" : "Khateeb", "email" : "ab@a.com", "gender" : "female", "ip_address" : "1.1.1.1", "age" : 25})
+> db.users.insert({"first_name" : "Gooddnan", "last_name" : "Khateeb", "email" : "ab@a.com", "gender" : "female", "ip_address" : "1.1.1.1", "age" : 25})
+> db.users.insertMany([{"first_name" : "John", "last_name" : "Wick", "email" : "ab@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 25}, {"first_name" : "Rom", "last_name" : "eo", "email" : "ab@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 25},{"first_name" : "Jul", "last_name" : "iet", "email" : "ab@a.com", "gender" : "female", "ip_address" : "1.1.1.1", "age" : 25},{"first_name" : "OutOf", "last_name" : "Names", "email" : "ab@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 25}])
+> db.users.find({}).pretty()
+> db.users.insertMany([{"first_name" : "John", "last_name" : "Wick", "email" : "ab@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 25}, {"first_name" : "Rom", "last_name" : "eo", "email" : "ab@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 25},{"first_name" : "Jul", "last_name" : "iet", "email" : "ab@a.com", "gender" : "female", "ip_address" : "1.1.1.1", "age" : 25},{"first_name" : "OutOf", "last_name" : "Names", "email" : "ab@a.com", "gender" : "male", "ip_address" : "1.1.1.1", "age" : 25}])
+> db.users.find({}).pretty()
+> db.users.remove({"first_name" : "Adnan"})
+> db.users.find({}).pretty()
