@@ -85,6 +85,11 @@ const bookSchema = new mongoose.Schema(
       ref: "author",
       required: true,
     },
+    authorId2: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "author",
+      required: false,
+    },
   },
 
   {
@@ -105,6 +110,7 @@ app.get("/books", async (req, res) => {
     const books = await Book.find()
       .populate("sectionId")
       .populate("authorId")
+      .populate("authorId2")
       .lean()
       .exec();
 
