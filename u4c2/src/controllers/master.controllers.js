@@ -1,6 +1,8 @@
 const express = require('express');
+const Fixed = require('../models/fixedAcct.models');
 
 const Master = require('../models/MasterAccount.models');
+const Saving = require('../models/savings.models');
 const router = express.Router();
 
 router.post('', async (req, res) => {
@@ -36,8 +38,25 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.get('/accts/:id', async(req,res) => {
-    
-})
+router.get('/accts/:id', async (req, res) => {
+  try {
+    const savingAccts = await Saving.find(
+      { masterId: req.params.id },
+      { account_number: 1, balance: 1 }
+    )
+      .lean()
+      .exec();
+    const fixedAccts = await Fixed.find(
+      { masterId: req.params.id },
+      { account_number: 1, balance: 1 }
+    )
+      .lean()
+      .exec();
+
+    return res.status(200).send(savingAccts, fixedAccts);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+});
 
 module.exports = router;
