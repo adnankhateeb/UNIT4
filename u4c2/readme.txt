@@ -1,0 +1,1 @@
+for all accounts linked to master go to : "localhost:5000/master/accts/<masteraccountid>"
