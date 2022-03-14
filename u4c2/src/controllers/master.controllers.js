@@ -53,7 +53,7 @@ router.get('/accts/:id', async (req, res) => {
       .lean()
       .exec();
 
-    return res.status(200).send(savingAccts, fixedAccts);
+    return res.status(200).send([savingAccts, fixedAccts]);
   } catch (err) {
     return res.status(500).send(err.message);
   }
