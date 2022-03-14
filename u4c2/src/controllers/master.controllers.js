@@ -36,4 +36,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.get('/accts/:id', async(req,res) => {
+    
+})
+
 module.exports = router;
