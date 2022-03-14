@@ -23,5 +23,13 @@ router.get('', async (req, res) => {
   }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const a = await Fixed.delete({ _id: req.params.id });
 
+    return res.status(200).send(a);
+  } catch (error) {
+    return res.status(500).send(err.message);
+  }
+});
 module.exports = router;
