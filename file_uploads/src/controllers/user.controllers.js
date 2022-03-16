@@ -54,7 +54,11 @@ router.patch('/update/:id', upload.single('profilePic'), async (req, res) => {
       if (err) throw err;
       console.log(`${user.firstName}'s profile picture updated!`);
     });
-    user.profilePic = req.file.path;
+    user = await User.updateOne(
+      { _id: req.params.id },
+      { profilePic: req.file.path }
+      );
+      user.profilePic = req.file.path;
     return res.status(200).send(user);
   } catch (err) {
     return res.status(500).send({ message: err.message });
