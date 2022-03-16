@@ -1,7 +1,8 @@
 const express = require('express');
-
+const path = require('path');
 const Gallery = require('../models/gallery.models');
 const upload = require('../middlewares/uploads');
+const fs = require('fs');
 
 const router = express.Router();
 
@@ -33,6 +34,35 @@ router.get('', async (req, res) => {
       .exec();
 
     return res.status(200).send(gallery);
+  } catch (err) {
+    return res.status(500).send({ message: err.message });
+  }
+});
+
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    // to find the gallery by id
+    let gallery = await Gallery.findOne({ _id: req.params.id });
+    let files = [];
+
+    //to get all file paths in an array
+    gallery.userPictures.map((file) => {
+      files.push(file);
+    });
+
+    // console.log(files);
+
+    // send each array element into the unlink function to delete them
+    files.forEach((f) => fs.unlink(f, (err) => {
+      if (err) throw err;
+    }));
+    console.log(`Gallery deleted`);
+
+    //delete gallery
+    gallery.delete();
+
+    //send the deleted gallery's info to the user!
+    res.send(gallery);
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
