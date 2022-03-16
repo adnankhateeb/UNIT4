@@ -12,9 +12,12 @@
   <form action="http://localhost:5000/users" method="post" enctype="multipart/form-data">
     <input type="file" name="profilePic" />
     <input type="text" name="firstName" value="" />
-    <input type="file" name = "userPictures">
-    <input type="text" name = "lastName">
+    <input type="text" name="lastName">
     <input type="submit" value="Submit" />
+  </form>
+  <form action="http://localhost:5000/gallery" method="post">
+    <input type="file" name="userPictures" multiple>
+    <input type="submit" value="Submit">
   </form>
 </body>
 
