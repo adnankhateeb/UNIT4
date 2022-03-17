@@ -43,17 +43,17 @@ router.delete('/delete/:id', async (req, res) => {
   try {
     // to find the gallery by id
     let gallery = await Gallery.findOne({ _id: req.params.id });
-    let files = [];
+    // let files = [];
 
     //to get all file paths in an array
-    gallery.userPictures.map((file) => {
-      files.push(file);
-    });
+    // gallery.userPictures.map((file) => {
+    //   files.push(file);
+    // });
 
     // console.log(files);
 
     // send each array element into the unlink function to delete them
-    files.forEach((f) => fs.unlink(f, (err) => {
+    gallery.userPictures.forEach((f) => fs.unlink(f, (err) => {
       if (err) throw err;
     }));
     console.log(`Gallery deleted`);
