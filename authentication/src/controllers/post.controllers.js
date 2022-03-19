@@ -16,7 +16,10 @@ router.post('', authenticate, async (req, res) => {
 
 router.get('', authenticate, async (req, res) => {
   try {
-    const post = await Post.find();
+    const post = await Post.find().populate({
+      path: 'userId',
+      select: { name: true, _id: 0, email: true },
+    });
     return res.status(200).send(post);
   } catch (err) {
     return res.status(400).send({ message: err.message });
@@ -25,21 +28,22 @@ router.get('', authenticate, async (req, res) => {
 
 router.patch('/:id', authenticate, async (req, res) => {
   try {
-    const post = await Post.findByIdAndUpdate(req.params.id, {title : req.body.title});
+    const post = await Post.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+    });
     return res.status(200).send(post);
   } catch (err) {
     return res.status(400).send({ message: err.message });
   }
 });
 
-
 router.delete('/:id', authenticate, async (req, res) => {
-    try {
-      const post = await Post.findByIdAndDelete(req.params.id);
-      return res.status(200).send(post);
-    } catch (err) {
-      return res.status(400).send({ message: err.message });
-    }
-  });
+  try {
+    const post = await Post.findByIdAndDelete(req.params.id);
+    return res.status(200).send(post);
+  } catch (err) {
+    return res.status(400).send({ message: err.message });
+  }
+});
 
 module.exports = router;
