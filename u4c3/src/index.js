@@ -11,6 +11,6 @@ const loginController = require('./controllers/login.controller');
 app.use('/register', registerController);
 app.use('/comments', commentController);
 app.use('/books', bookController);
-app.use('login', loginController);
+app.use('/login', loginController);
 
 module.exports = app;
