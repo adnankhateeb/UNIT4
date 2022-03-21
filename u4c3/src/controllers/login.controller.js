@@ -21,9 +21,9 @@ router.post(
         return res.status(400).send('Wrong Email or Password');
       }
 
-      const match = user.checkPassword(req.body.password);
+      const password = req.body.password;
 
-      if (!match) {
+      if (user.password != password) {
         return res.status(400).send({ message: 'Wrong Email or Password' });
       }
 
