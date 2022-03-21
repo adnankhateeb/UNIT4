@@ -41,6 +41,7 @@ router.post(
         lastName: req.body.lastName,
         age: req.body.age,
         email: req.body.email,
+        password : req.body.password,
         userPictures: filePaths,
       });
 
