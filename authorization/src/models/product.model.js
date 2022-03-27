@@ -32,7 +32,7 @@ router.patch(
   }
 );
 
-router.patch(
+router.delete(
   '/:id',
   authenticate,
   authorise(['admin', 'seller']),
