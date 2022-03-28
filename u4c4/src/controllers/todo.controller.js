@@ -3,9 +3,10 @@ const express = require('express');
 
 const Todo = require('../models/todo.model');
 const router = express.Router();
-const authenticate = require('../middlewares/authenticate')
+const authenticate = require('../middlewares/authenticate');
+const authorize = require('../middlewares/authorize');
 
-router.get('/todo', async (req, res) => {
+router.get('/todo', authenticate, async (req, res) => {
   try {
     const todo = await Todo.find({}).lean().exec();
 
@@ -15,7 +16,7 @@ router.get('/todo', async (req, res) => {
   }
 });
 
-router.post('/todo', async (req, res) => {
+router.post('/todo', authenticate, async (req, res) => {
   try {
     const todo = await Todo.create(req.body);
 
@@ -25,7 +26,7 @@ router.post('/todo', async (req, res) => {
   }
 });
 
-router.get('/todo/:id', authenticate, async (req, res) => {
+router.get('/todo/:id', authenticate, authorize, async (req, res) => {
   try {
     const todo = await Todo.find({ userId: req.params.id }).lean().exec();
 
@@ -35,19 +36,17 @@ router.get('/todo/:id', authenticate, async (req, res) => {
   }
 });
 
+router.patch('/todo/:id', authenticate, authorize, async (req, res) => {
+  try {
+    const todo = await Todo.findByIdAndUpdate(req.params.id);
 
-router.patch('/todo/:id', authenticate, async (req, res) => {
-    try {
-      const todo = await Todo.findByIdAndUpdate(req.params.id);
-  
-      return res.status(200).send({ todo });
-    } catch (err) {
-      return res.status(500).send({ err: err.message });
-    }
-  });
-  
+    return res.status(200).send({ todo });
+  } catch (err) {
+    return res.status(500).send({ err: err.message });
+  }
+});
 
-router.delete('/todo/:id', authenticate, async (req, res) => {
+router.delete('/todo/:id', authenticate, authorize, async (req, res) => {
   try {
     const todo = await Todo.findByIdAndDelete(req.params.id);
 
@@ -56,3 +55,6 @@ router.delete('/todo/:id', authenticate, async (req, res) => {
     return res.status(500).send({ err: err.message });
   }
 });
+
+
+module.exports = router;
